@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Transaction;
-use Illuminate\Http\Request;
-use App\Models\TransactionItem;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
+use App\Models\TransactionItem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -22,34 +22,29 @@ class TransactionController extends Controller
             $transaction = Transaction::with(['items.product'])->find($id);
 
             if($transaction)
-            {
                 return ResponseFormatter::success(
                     $transaction,
                     'Data transaksi berhasil diambil'
                 );
-            }
             else
-            {
                 return ResponseFormatter::error(
                     null,
                     'Data transaksi tidak ada',
                     404
                 );
-            }
         }
 
         $transaction = Transaction::with(['items.product'])->where('users_id', Auth::user()->id);
 
         if($status)
-        {
             $transaction->where('status', $status);
-        }
+
         return ResponseFormatter::success(
             $transaction->paginate($limit),
             'Data list transaksi berhasil diambil'
         );
-
     }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -71,7 +66,7 @@ class TransactionController extends Controller
             'shipping_price' => $request->shipping_price,
             'status' => $request->status
         ]);
-
+        
         foreach ($request->items as $product) {
             TransactionItem::create([
                 'users_id' => Auth::user()->id,

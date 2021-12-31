@@ -1,1 +1,1 @@
-<img src="/logo.svg" alt="Logo" style="height: 80px" />
+<img src="/images/logo.svg" style="height: 30px;"/>
