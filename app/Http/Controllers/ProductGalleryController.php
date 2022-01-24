@@ -43,7 +43,7 @@ class ProductGalleryController extends Controller
 
         return view('pages.dashboard.gallery.index', compact('product'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
